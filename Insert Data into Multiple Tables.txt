@@ -1,0 +1,53 @@
+Insert Data In 2 or Multiple Tables in Asp.Net MVC
+
+
+Step 1) Create a Additional Class of Model Type
+
+Step 2) Write all the properties of the tables  where you want to insert data 
+
+example :>
+
+Properties From Employee Table:
+
+        public int id { get; set; }
+        public string Name { get; set; }
+        public string Father_Name { get; set; }
+        public Nullable<int> Contact { get; set; }
+        public string Email { get; set; }
+
+Properties From Another Table Designation:
+
+        public string Address { get; set; }
+
+
+Step 3) Create a Controller and Write below code here
+
+
+
+Entities db = new Entities();
+        // GET: Default
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Index(AdditionalClass obj)
+        {
+            Employee_Information_tbl emp = new Employee_Information_tbl();
+            emp.Name = obj.Name;
+            emp.Contact = obj.Contact;
+            emp.Email = obj.Email;
+            emp.Father_Name = obj.Father_Name;
+            db.Employee_Information_tbl.Add(emp);
+            db.SaveChanges();
+            Address_tbl ob = new Address_tbl();
+            ob.Address = obj.Address;
+            db.Address_tbl.Add(ob);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+Step 4) Create a View of type Additional Class 
+
+
+BY UMAIR CHAUDHRY
